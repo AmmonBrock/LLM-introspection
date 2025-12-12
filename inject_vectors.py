@@ -58,21 +58,16 @@ def test_concept_vector_injection(
             is_tuple = True
         # Inject at the last token position
 
-        try:
-            if first_pass[0]:   
-                modified_output[:, -1, :] += injection_vector.unsqueeze(0)
-                # modified_output[:, -1, :] -= something_vector.unsqueeze(0)
-                # modified_output[:, -1, :] = injection_vector.unsqueeze(0)
-                first_pass[0] = False
+        if first_pass[0]:   
+            modified_output[:, -1, :] += injection_vector.unsqueeze(0)
+            # modified_output[:, -1, :] -= something_vector.unsqueeze(0)
+            # modified_output[:, -1, :] = injection_vector.unsqueeze(0)
+            first_pass[0] = False
 
-            if is_tuple:
-                return (modified_output,) + output[1:]
-            else:
-                return modified_output
-        except Exception as e:
-            import pdb
-            pdb.set_trace()
-            raise e
+        if is_tuple:
+            return (modified_output,) + output[1:]
+        else:
+            return modified_output
         
         
 
